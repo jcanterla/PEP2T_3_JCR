@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 abstract public class Aeronave {
     private String codigo_del_aparato;
@@ -21,5 +22,30 @@ abstract public class Aeronave {
         this.capacidad_pasajeros = capacidad_pasajeros;
         this.coste = coste;
         this.precio_venta = precio_venta;
+    }
+
+    private LocalDate getFecha_de_entrega(){
+        return  fecha_de_entrega;
+    }
+
+    private Double horasBenef(){
+        return null;
+    }
+
+    private String propul(){
+        return null;
+    }
+
+    private DateTimeFormatter formadate(){
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yy");
+        return f;
+    }
+
+    private Double totalHoras(){
+        return null;
+    }
+
+    private Double facturacion(){
+        return null;
     }
 }
