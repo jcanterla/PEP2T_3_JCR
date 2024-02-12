@@ -1,8 +1,10 @@
 import java.lang.reflect.Array;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Locale;
 
 abstract public class Aeronave implements Propulsor{
     private String codigo_del_aparato;
@@ -27,16 +29,23 @@ abstract public class Aeronave implements Propulsor{
         this.precio_venta = precio_venta;
     }
 
-    public LocalDate getFecha_de_entrega(){
-        return fecha_de_entrega;
+    public String fechaEntrega(){
+        String cadena = "Después construyó un " + getClass().getSimpleName() + " el " + formadate().format(fecha_de_entrega) +
+                "para" + capacidad_pasajeros + " pasajeros.";
+        return cadena;
     }
 
-    public Double horasBenef(){
-        return null;
+    public String horasBenef(){
+        Locale euro = new Locale("es", "ES");
+        NumberFormat simbolo = NumberFormat.getCurrencyInstance(euro);
+        String cadena = "Esto supuso " + horas_de_trabajo_ya_empleadas + " horas de trabajo generando un beneficio de " +
+                (precio_venta - coste)+simbolo;
+        return cadena;
     }
 
     public String propul(){
-        return null;
+        String cadena = "Esta aeronave utiliza queroxeno.";
+        return cadena;
     }
 
     public DateTimeFormatter formadate(){
@@ -44,16 +53,30 @@ abstract public class Aeronave implements Propulsor{
         return f;
     }
 
-    public Double totalHoras(){
-        return null;
+    public String totalHoras(Aeronave[] tabla){
+        int total_horas = 0;
+        for (Aeronave e: tabla){
+            if(e instanceof  Avioneta){
+                total_horas += e.horas_de_trabajo_ya_empleadas;
+            }
+        }
+        String cadena = "El total de horas de trabajo empleadas en el tipo" + getClass().getSimpleName() + "fueron: " +
+            total_horas;
+        return cadena;
     }
 
-    public Double facturacion(){
-        return null;
+    public String facturacion(Aeronave[] tabla){
+        Locale euro = new Locale("es", "ES");
+        NumberFormat simbolo = NumberFormat.getCurrencyInstance(euro);
+        int facturacion_total = 0;
+        for (Aeronave e: tabla){
+            facturacion_total += (e.precio_venta - e.coste);
+        }
+        String cadena = "La facturación total de la compañia a día de hoy: " + facturacion_total + simbolo;
+        return cadena;
     }
 
     public static void main(String[] args) {
-
         LocalDate f1 = LocalDate.parse("12/31/01", DateTimeFormatter.ofPattern("MM/dd/yy"));
         LocalDate f2 = LocalDate.parse("07/05/05", DateTimeFormatter.ofPattern("MM/dd/yy"));
         LocalDate f3 = LocalDate.parse("04/30/01", DateTimeFormatter.ofPattern("MM/dd/yy"));
@@ -89,8 +112,5 @@ abstract public class Aeronave implements Propulsor{
         };
 
         Arrays.sort(tabla, Comparator.comparing(a -> a.fecha_de_entrega));
-
-
-
     }
 }
