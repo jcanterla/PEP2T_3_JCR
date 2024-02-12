@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PEP2T_3_JCR:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PEP2T_3_JCR_jar</output-path>
+    <root id="archive" name="PEP2T_3_JCR.jar">
+      <element id="module-output" name="PEP2T_3_JCR" />
+    </root>
+  </artifact>
+</component>

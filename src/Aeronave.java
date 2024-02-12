@@ -120,7 +120,7 @@ abstract public class Aeronave implements Propulsor{
 
         Arrays.sort(tabla, Comparator.comparing(a -> a.fecha_de_entrega));
 
-        System.out.println("\t\t\t\t\t\t\033[1m\033[4mPROGRAMA AERONAVES\033[0m");
+        System.out.println("\t\t\t\t\033[1m\033[4mPROGRAMA AERONAVES\033[0m");
         System.out.println();
         int numero_uno = 0;
         for(Aeronave e: tabla) {
