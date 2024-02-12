@@ -31,7 +31,7 @@ abstract public class Aeronave implements Propulsor{
 
     public String fechaEntrega(){
         String cadena = "Después construyó un " + getClass().getSimpleName() + " el " + formadate().format(fecha_de_entrega) +
-                "para" + capacidad_pasajeros + " pasajeros.";
+                " para " + capacidad_pasajeros + " pasajeros.";
         return cadena;
     }
 
@@ -39,7 +39,7 @@ abstract public class Aeronave implements Propulsor{
         Locale euro = new Locale("es", "ES");
         NumberFormat simbolo = NumberFormat.getCurrencyInstance(euro);
         String cadena = "Esto supuso " + horas_de_trabajo_ya_empleadas + " horas de trabajo generando un beneficio de " +
-                (precio_venta - coste)+simbolo;
+                simbolo.format(precio_venta - coste);
         return cadena;
     }
 
@@ -56,11 +56,11 @@ abstract public class Aeronave implements Propulsor{
     public String totalHoras(Aeronave[] tabla){
         int total_horas = 0;
         for (Aeronave e: tabla){
-            if(e instanceof  Avioneta){
+            if(e instanceof Avioneta){
                 total_horas += e.horas_de_trabajo_ya_empleadas;
             }
         }
-        String cadena = "El total de horas de trabajo empleadas en el tipo" + getClass().getSimpleName() + "fueron: " +
+        String cadena = "El total de horas de trabajo empleadas en el tipo " + getClass().getSimpleName() + " fueron: " +
             total_horas;
         return cadena;
     }
@@ -70,9 +70,9 @@ abstract public class Aeronave implements Propulsor{
         NumberFormat simbolo = NumberFormat.getCurrencyInstance(euro);
         int facturacion_total = 0;
         for (Aeronave e: tabla){
-            facturacion_total += (e.precio_venta - e.coste);
+            facturacion_total += e.precio_venta;
         }
-        String cadena = "La facturación total de la compañia a día de hoy: " + facturacion_total + simbolo;
+        String cadena = "La facturación total de la compañia a día de hoy: " + facturacion_total + simbolo.format(facturacion_total);
         return cadena;
     }
 
@@ -112,5 +112,15 @@ abstract public class Aeronave implements Propulsor{
         };
 
         Arrays.sort(tabla, Comparator.comparing(a -> a.fecha_de_entrega));
+
+        for(Aeronave e: tabla) {
+            System.out.println(e.fechaEntrega());
+            System.out.println(e.horasBenef());
+            System.out.println(e.propul());
+            System.out.println();
+        }
+        System.out.println(tabla[6].totalHoras(tabla));
+        System.out.println(tabla[1].facturacion(tabla));
+
     }
 }
